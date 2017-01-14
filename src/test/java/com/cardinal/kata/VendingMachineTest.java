@@ -19,7 +19,7 @@ public class VendingMachineTest {
     @Test
     public void rejectPennyCoinTest() {
        vendingMachine.insertCoin(Coin.PENNY);
-       assertEquals(.01, vendingMachine.coinReturn(),0d);
+       assertEquals(.01, vendingMachine.getRejectedCoinValue(),0d);
        assertEquals(0d, vendingMachine.getDisplay(),0d);
     }
 }
