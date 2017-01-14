@@ -7,22 +7,34 @@ public class VendingMachine {
     
  double displayValue;
  Collection<Coin> coinReturn = new ArrayList<Coin>();
+ ArrayList<Coin> changeBin = new ArrayList<Coin>();
  double rejectedCoinValue;
  
  public void insertCoin(Coin coin) {
-   if (!isValidCoin(coin)) {
+   if (isInvalidCoin(coin)) {
          // return the payment
          rejectPayment(coin);
+    } else {
+        acceptPayment(coin);
     }
-    acceptPayment(coin);
 }    
 
 
-public boolean isValidCoin(Coin coin) {
-    return coin != Coin.PENNY;    
+public boolean isInvalidCoin(Coin coin) {
+    return coin == Coin.PENNY;    
 }
  
- public void acceptPayment(Coin coin) {}
+ /**
+  * when the payment is accepted, the display value is updated to reflect the additional coin
+  * and the total coin value is updated (for change)
+  */
+ public void acceptPayment(Coin coin) {
+    double coinValue = getCoinValue(coin);
+    updateDisplay(coinValue);
+    setRejectedCoinValue(0d);
+    addToChangeBin(coin);
+ }
+
  
  /**
   * when the coin inserted is not valid, it is rejected by returning it in the 
@@ -69,5 +81,13 @@ public boolean isValidCoin(Coin coin) {
         }
         
         return coinValue;
+    }
+    
+    private void updateDisplay(double coinValue) {
+        displayValue += coinValue;
+    }
+    
+    private void addToChangeBin(Coin coin) {
+        changeBin.add(coin);
     }
 }
