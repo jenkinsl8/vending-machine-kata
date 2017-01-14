@@ -10,6 +10,8 @@ public class VendingMachine {
  ArrayList<Coin> changeBin = new ArrayList<Coin>();
  double rejectedCoinValue;
  
+ 
+ 
  public void insertCoin(Coin coin) {
    if (isInvalidCoin(coin)) {
          // return the payment
@@ -25,8 +27,8 @@ public boolean isInvalidCoin(Coin coin) {
 }
  
  /**
-  * when the payment is accepted, the display value is updated to reflect the additional coin
-  * and the total coin value is updated (for change)
+  * When a valid coin is inserted the amount of the coin will be added to the current amount 
+  * and the display will be updated.
   */
  public void acceptPayment(Coin coin) {
     double coinValue = getCoinValue(coin);
@@ -38,9 +40,9 @@ public boolean isInvalidCoin(Coin coin) {
  
  /**
   * when the coin inserted is not valid, it is rejected by returning it in the 
-  * coin return slot.
-  * Here, the coin return slot is reflected as an object that holds a collection of coins. 
-  *  The coin value is not reflected in the machine display value.
+  * coin return slot.  Here, the coin return slot is reflected as an object that holds a collection of coins. 
+  * The rejected coin value is not reflected in the machine display value, but the last rejected coin value is recorded,
+  * in case it is needed.
   * 
   */
  public void rejectPayment(Coin coin) {
