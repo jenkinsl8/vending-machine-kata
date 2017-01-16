@@ -1,36 +1,26 @@
 package com.cardinal.kata;
 
-import java.util.Collection;
 import java.util.ArrayList;
 
 public class VendingMachine {
-    
- double displayValue;
- Collection<Coin> coinReturn = new ArrayList<Coin>();
- ArrayList<Coin> changeBin = new ArrayList<Coin>();
- double rejectedCoinValue;
- 
- 
- 
- public void insertCoin(Coin coin) {
-   if (isInvalidCoin(coin)) {
-         // return the payment
-         rejectPayment(coin);
-    } else {
-        acceptPayment(coin);
+
+    CoinSlot        coinSlot;
+    double          displayValue;
+    ArrayList<Coin> coinReturn = new ArrayList<Coin>();
+    ArrayList<Coin> changeBin  = new ArrayList<Coin>();
+    double          rejectedCoinValue;
+
+
+    public VendingMachine() {
+        coinSlot = new CoinSlot();
     }
-}    
 
-
-public boolean isInvalidCoin(Coin coin) {
-    return coin == Coin.PENNY;    
-}
- 
- /**
+   
+    /**
   * When a valid coin is inserted the amount of the coin will be added to the current amount 
   * and the display will be updated.
   */
- public void acceptPayment(Coin coin) {
+ private void acceptPayment(Coin coin) {
     double coinValue = getCoinValue(coin);
     updateDisplay(coinValue);
     setRejectedCoinValue(0d);
@@ -45,50 +35,66 @@ public boolean isInvalidCoin(Coin coin) {
   * in case it is needed.
   * 
   */
- public void rejectPayment(Coin coin) {
+ private void rejectPayment(Coin coin) {
     setRejectedCoinValue(getCoinValue(coin));
     coinReturn.add(coin);
  }
  
- public double getDisplay() {
-     return displayValue;
- }
- 
- private void setRejectedCoinValue(double value) {
-     rejectedCoinValue = value;
- }
-     
- public double getRejectedCoinValue() {
-     return rejectedCoinValue;
- }
- 
- private double getCoinValue(Coin coin) {
-     double coinValue = 0d;
-     
-      switch (coin ) {
-         case PENNY:
-            coinValue = .01;
-            break;
-         case NICKEL:
-            coinValue = .05;
-            break;
-        case DIME:
-            coinValue = .10;
-            break;
-        case QUARTER:
-            coinValue = .25;
-            break;
-        default:
-            break;
+ /**
+  * method accepts the coin and determines if the coin is valid or not.
+  * When valid, the payment is accepted. 
+  * When not valid the payement is rejected.
+  */
+
+    public void insertCoin(Coin coin) {
+        try {
+            coinSlot.insertCoin(coin);
+            acceptPayment(coin);
+        } catch (Exception ex) {
+            rejectPayment(coin);
         }
-        
+
+    }
+ 
+    public double getDisplay() {
+        return displayValue;
+    }
+
+    private void setRejectedCoinValue(double value) {
+        rejectedCoinValue = value;
+    }
+
+    public double getRejectedCoinValue() {
+        return rejectedCoinValue;
+    }
+
+    private double getCoinValue(Coin coin) {
+        double coinValue = 0d;
+
+        switch (coin) {
+            case PENNY:
+                coinValue = .01;
+                break;
+            case NICKEL:
+                coinValue = .05;
+                break;
+            case DIME:
+                coinValue = .10;
+                break;
+            case QUARTER:
+                coinValue = .25;
+                break;
+            default:
+                break;
+        }
+
         return coinValue;
     }
-    
+
     private void updateDisplay(double coinValue) {
         displayValue += coinValue;
     }
-    
+
     private void addToChangeBin(Coin coin) {
         changeBin.add(coin);
     }
