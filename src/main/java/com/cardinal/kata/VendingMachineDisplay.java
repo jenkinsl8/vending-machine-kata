@@ -5,7 +5,7 @@ public class VendingMachineDisplay {
     private static final String NO_COIN_INSERTED = "INSERT COIN";
     
     public VendingMachineDisplay() {
-    
+        displayText = NO_COIN_INSERTED;
     }
     
     public String getDisplayText() {
