@@ -1,18 +1,20 @@
 package com.cardinal.kata;
 
 import java.util.ArrayList;
+import java.math.BigDecimal;
 
 public class VendingMachine {
 
-    CoinSlot        coinSlot;
-    double          displayValue;
+    private static CoinSlot  coinSlot;
+    private static VendingMachineDisplay vendingMachineDisplay;
     ArrayList<Coin> coinReturn = new ArrayList<Coin>();
     ArrayList<Coin> changeBin  = new ArrayList<Coin>();
-    double          rejectedCoinValue;
+    BigDecimal rejectedCoinValue;
 
 
     public VendingMachine() {
         coinSlot = new CoinSlot();
+        vendingMachineDisplay = new VendingMachineDisplay();
     }
 
    
@@ -21,9 +23,9 @@ public class VendingMachine {
   * and the display will be updated.
   */
  private void acceptPayment(Coin coin) {
-    double coinValue = getCoinValue(coin);
+    BigDecimal coinValue = getCoinValue(coin);
     updateDisplay(coinValue);
-    setRejectedCoinValue(0d);
+    setRejectedCoinValue(BigDecimal.ZERO);
     addToChangeBin(coin);
  }
 
@@ -56,33 +58,33 @@ public class VendingMachine {
 
     }
  
-    public double getDisplay() {
-        return displayValue;
+    public String getDisplay() {
+        return  vendingMachineDisplay.getDisplayText();
     }
 
-    private void setRejectedCoinValue(double value) {
+    private void setRejectedCoinValue(BigDecimal value) {
         rejectedCoinValue = value;
     }
 
-    public double getRejectedCoinValue() {
+    public BigDecimal getRejectedCoinValue() {
         return rejectedCoinValue;
     }
 
-    private double getCoinValue(Coin coin) {
-        double coinValue = 0d;
+    private BigDecimal getCoinValue(Coin coin) {
+        BigDecimal coinValue = BigDecimal.ZERO;
 
         switch (coin) {
             case PENNY:
-                coinValue = .01;
+                coinValue = new BigDecimal(".01");
                 break;
             case NICKEL:
-                coinValue = .05;
+                coinValue = new BigDecimal(".05");
                 break;
             case DIME:
-                coinValue = .10;
+                coinValue = new BigDecimal(".10");
                 break;
             case QUARTER:
-                coinValue = .25;
+                coinValue = new BigDecimal(".25");
                 break;
             default:
                 break;
@@ -91,8 +93,8 @@ public class VendingMachine {
         return coinValue;
     }
 
-    private void updateDisplay(double coinValue) {
-        displayValue += coinValue;
+    private void updateDisplay(BigDecimal coinValue) {
+        vendingMachineDisplay.setDisplayValue(coinValue);
     }
 
     private void addToChangeBin(Coin coin) {

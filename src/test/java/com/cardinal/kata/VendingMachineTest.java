@@ -3,6 +3,7 @@ package com.cardinal.kata;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
+import java.math.BigDecimal;
 
 public class VendingMachineTest {
     VendingMachine vendingMachine;
@@ -19,28 +20,28 @@ public class VendingMachineTest {
     @Test
     public void rejectPennyCoinTest() {
        vendingMachine.insertCoin(Coin.PENNY);
-       assertEquals(.01, vendingMachine.getRejectedCoinValue(),0d);
-       assertEquals(0d, vendingMachine.getDisplay(),0d);
+       assertEquals(new BigDecimal(".01"), vendingMachine.getRejectedCoinValue());
+       assertEquals("INSERT COIN", vendingMachine.getDisplay());
     }
     
     @Test
     public void acceptNickelCoinTest() {
         vendingMachine.insertCoin(Coin.NICKEL);
-        assertEquals(.05, vendingMachine.getDisplay(), 0d);
-        assertEquals(0d, vendingMachine.getRejectedCoinValue(),0d);
+        assertEquals("PRODUCT 0.05", vendingMachine.getDisplay());
+        assertEquals(BigDecimal.ZERO, vendingMachine.getRejectedCoinValue());
     }
     
     @Test
     public void acceptDimeCoinTest() {
         vendingMachine.insertCoin(Coin.DIME);
-        assertEquals(.10, vendingMachine.getDisplay(), 0d);
-        assertEquals(0d, vendingMachine.getRejectedCoinValue(), 0d);
+        assertEquals("PRODUCT 0.10", vendingMachine.getDisplay());
+        assertEquals(BigDecimal.ZERO, vendingMachine.getRejectedCoinValue());
     }
     
     @Test
     public void acceptQuarterCoinTest() {
         vendingMachine.insertCoin(Coin.QUARTER);
-        assertEquals(.25, vendingMachine.getDisplay(), 0d);
-        assertEquals(0d, vendingMachine.getRejectedCoinValue(),0d);
+        assertEquals("PRODUCT 0.25", vendingMachine.getDisplay());
+        assertEquals(BigDecimal.ZERO, vendingMachine.getRejectedCoinValue());
     }
 }

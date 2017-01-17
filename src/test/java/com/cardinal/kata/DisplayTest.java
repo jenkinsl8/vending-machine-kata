@@ -3,6 +3,7 @@ package com.cardinal.kata;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
+import java.math.BigDecimal;
 
 /**
  * Test the vendingMachine display logic
@@ -30,8 +31,8 @@ public class DisplayTest {
      */
     @Test
     public void changeDisplayText() {
-        vendingMachineDisplay.setDisplayText("1.00");
-        assertEquals("1.00", vendingMachineDisplay.getDisplayText());
+        vendingMachineDisplay.setDisplayValue(BigDecimal.ONE);
+        assertEquals("PRODUCT 1.00", vendingMachineDisplay.getDisplayText());
     }
     
 }

@@ -1,6 +1,5 @@
 package com.cardinal.kata;
 
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,6 +18,7 @@ public class CoinSlotTest {
     @Test(expected = IllegalArgumentException.class)
     public void rejectPennyCoinTest() {
        coinSlot.insertCoin(Coin.PENNY);
+
       }
     
     @Test
@@ -39,5 +39,6 @@ public class CoinSlotTest {
         coinSlot.insertCoin(Coin.QUARTER);
     }
 
+    
      
 }
